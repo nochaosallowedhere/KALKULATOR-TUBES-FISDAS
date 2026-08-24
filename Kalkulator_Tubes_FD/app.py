@@ -257,6 +257,21 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.markdown(
+    """
+    <div style="
+        color: white;
+        font-size: 1.35rem;
+        font-weight: 800;
+        margin-top: 25px;
+        margin-bottom: 12px;
+    ">
+        BAB I
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 
 for i, kriteria in enumerate(rubrik_penilaian):
 
