@@ -38,7 +38,7 @@ for i, kriteria in enumerate(rubrik_penilaian):
         key=f"selectbox_{i}"
     )
 
-    # Cari deskripsi berdasarkan poin yang dipilih
+    # Ambil deskripsi berdasarkan poin yang dipilih
     deskripsi = poin_opsi[pilihan]
 
     # Tampilkan deskripsi lengkap
@@ -47,11 +47,6 @@ for i, kriteria in enumerate(rubrik_penilaian):
     # Simpan nilai
     selected_scores[nama] = pilihan
     total_score += pilihan
-    
-    # Extract the numeric score from the selected string
-    selected_poin = int(selected_option_str.split(' ')[0])
-    selected_scores[nama] = selected_poin
-    total_score += selected_poin
 
-st.markdown("--- ")
+st.markdown("---")
 st.success(f"## Total Poin: {total_score}")
