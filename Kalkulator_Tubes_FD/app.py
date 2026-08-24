@@ -28,7 +28,15 @@ for i, kriteria in enumerate(rubrik_penilaian):
         reverse=True
     )
 
-    # Dropdown hanya menampilkan angka poin
+    # Tampilkan seluruh deskripsi terlebih dahulu
+    st.markdown("**Deskripsi:**")
+
+    for poin, deskripsi in sorted_poin_opsi:
+        st.markdown(
+            f"**{poin} poin:** {deskripsi}"
+        )
+
+    # Dropdown pilihan poin
     pilihan_poin = [poin for poin, deskripsi in sorted_poin_opsi]
 
     pilihan = st.selectbox(
@@ -37,12 +45,6 @@ for i, kriteria in enumerate(rubrik_penilaian):
         format_func=lambda x: f"{x} poin",
         key=f"selectbox_{i}"
     )
-
-    # Ambil deskripsi berdasarkan poin yang dipilih
-    deskripsi = poin_opsi[pilihan]
-
-    # Tampilkan deskripsi lengkap
-    st.info(f"**Deskripsi:** {deskripsi}")
 
     # Simpan nilai
     selected_scores[nama] = pilihan
