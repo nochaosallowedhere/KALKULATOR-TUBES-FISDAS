@@ -6,10 +6,9 @@ from rubric_data import rubrik_penilaian
 # =========================================================
 
 st.set_page_config(
-    page_title="Rubric Scoreboard",
+    page_title="Kalkulator Tubes Fisdas",
     page_icon="📋",
-    layout="wide",
-    initial_sidebar_state="collapsed"
+    layout="wide"
 )
 
 # =========================================================
@@ -19,188 +18,109 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-    /* ==============================
-       GLOBAL
-    ============================== */
-
+    /* Background */
     .stApp {
-        background: #f6f7fb;
+        background-color: #f5f7fb;
     }
 
+    /* Main container */
     .block-container {
-        max-width: 1200px;
+        max-width: 1150px;
         padding-top: 2rem;
         padding-bottom: 4rem;
     }
 
-    /* ==============================
-       HEADER
-       ============================== */
-
-    .hero {
-        padding: 2rem 2.2rem;
-        border-radius: 24px;
-        background: linear-gradient(
-            135deg,
-            #111827 0%,
-            #1f2937 50%,
-            #374151 100%
-        );
-        color: white;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    /* Hero */
+    .hero-box {
+        background: linear-gradient(135deg, #111827, #374151);
+        padding: 35px;
+        border-radius: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
     }
 
     .hero-title {
-        font-size: 2.2rem;
+        color: white;
+        font-size: 2.3rem;
         font-weight: 800;
-        margin-bottom: 0.3rem;
+        margin: 0;
     }
 
     .hero-subtitle {
+        color: #d1d5db;
         font-size: 1rem;
-        opacity: 0.75;
+        margin-top: 8px;
     }
 
-    /* ==============================
-       SCORE CARD
-       ============================== */
-
-    .score-card {
+    /* Score */
+    .score-box {
         background: white;
         border-radius: 22px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        padding: 25px;
         text-align: center;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        border: 1px solid #e5e7eb;
+        margin-bottom: 30px;
     }
 
-    .score-label {
-        font-size: 0.9rem;
+    .score-title {
         color: #6b7280;
-        font-weight: 600;
+        font-size: 0.9rem;
+        font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
-    .score-number {
+    .score-value {
+        color: #111827;
         font-size: 3rem;
         font-weight: 900;
-        color: #111827;
-        margin: 0.2rem 0;
+        margin-top: 5px;
     }
 
-    .score-max {
-        font-size: 1rem;
-        color: #9ca3af;
-    }
-
-    /* ==============================
-       SECTION
-       ============================== */
-
+    /* Section title */
     .section-title {
+        color: #111827;
         font-size: 1.5rem;
         font-weight: 800;
-        color: #111827;
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
+        margin-top: 25px;
+        margin-bottom: 15px;
     }
 
-    /* ==============================
-       RUBRIC CARD
-       ============================== */
-
-    .rubric-card {
-        background: white;
-        border: 1px solid #e5e7eb;
-        border-radius: 20px;
-        padding: 1.5rem;
-        margin-bottom: 1.2rem;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.05);
-    }
-
-    .rubric-title {
-        font-size: 1.2rem;
-        font-weight: 800;
-        color: #111827;
-        margin-bottom: 1rem;
-    }
-
-    .description-title {
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: #6b7280;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        margin-bottom: 0.7rem;
-    }
-
-    .description-item {
-        background: #f9fafb;
-        border-left: 4px solid #374151;
+    /* Description box */
+    .description-box {
+        background: #f8fafc;
+        border-left: 5px solid #374151;
         border-radius: 10px;
-        padding: 0.8rem 1rem;
-        margin-bottom: 0.6rem;
+        padding: 12px 15px;
+        margin-bottom: 10px;
         color: #374151;
-        line-height: 1.55;
+        line-height: 1.6;
     }
 
-    .point-badge {
+    .point-label {
         font-weight: 800;
         color: #111827;
     }
 
-    /* ==============================
-       RECAP
-       ============================== */
-
-    .recap-card {
-        background: white;
-        border: 1px solid #e5e7eb;
-        border-radius: 18px;
-        padding: 1rem 1.2rem;
-        margin-bottom: 0.7rem;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    }
-
-    .recap-name {
-        font-weight: 700;
-        color: #374151;
-    }
-
-    .recap-score {
-        font-weight: 900;
-        color: #111827;
-    }
-
-    /* ==============================
-       MOBILE
-       ============================== */
-
+    /* Mobile */
     @media (max-width: 768px) {
 
         .block-container {
             padding: 1rem;
         }
 
-        .hero {
-            padding: 1.4rem;
+        .hero-box {
+            padding: 22px;
             border-radius: 18px;
         }
 
         .hero-title {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
         }
 
-        .score-number {
+        .score-value {
             font-size: 2.4rem;
-        }
-
-        .rubric-card {
-            padding: 1rem;
-            border-radius: 16px;
         }
 
     }
@@ -213,32 +133,30 @@ st.markdown("""
 # HEADER
 # =========================================================
 
-st.markdown("""
-<div class="hero">
-    <div class="hero-title">
-        📋 Rubric Scoreboard
+st.markdown(
+    """
+    <div class="hero-box">
+        <div class="hero-title">📋 Rubric Scoreboard</div>
+        <div class="hero-subtitle">
+            Kalkulator Rubrik Penilaian Tugas Besar
+        </div>
     </div>
-    <div class="hero-subtitle">
-        Kalkulator Rubrik Penilaian Tugas Besar
-    </div>
-</div>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
 
 # =========================================================
-# INITIALIZATION
+# INITIAL DATA
 # =========================================================
 
 total_score = 0
 selected_scores = {}
 
-# =========================================================
-# CALCULATE MAX SCORE
-# =========================================================
-
 max_score = 0
 
 for kriteria in rubrik_penilaian:
+
     poin_opsi = kriteria["poin_tersedia"]
 
     if poin_opsi:
@@ -246,14 +164,7 @@ for kriteria in rubrik_penilaian:
 
 
 # =========================================================
-# SCORE DISPLAY
-# =========================================================
-
-score_placeholder = st.empty()
-
-
-# =========================================================
-# RUBRIC SECTION
+# PENILAIAN
 # =========================================================
 
 st.markdown(
@@ -267,7 +178,7 @@ for i, kriteria in enumerate(rubrik_penilaian):
     nama = kriteria["nama_kriteria"]
     poin_opsi = kriteria["poin_tersedia"]
 
-    # Sort points descending
+    # Urutkan poin
     sorted_poin_opsi = sorted(
         poin_opsi.items(),
         key=lambda item: item[0],
@@ -275,44 +186,31 @@ for i, kriteria in enumerate(rubrik_penilaian):
     )
 
     # -----------------------------------------
-    # CARD START
+    # NAMA KRITERIA
     # -----------------------------------------
 
-    st.markdown(
-        f"""
-        <div class="rubric-card">
-
-            <div class="rubric-title">
-                📌 {nama}
-            </div>
-
-            <div class="description-title">
-                Deskripsi Kriteria
-            </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown(f"### 📌 {nama}")
 
     # -----------------------------------------
-    # DESCRIPTION
+    # DESKRIPSI
     # -----------------------------------------
+
+    st.markdown("**Deskripsi Kriteria:**")
 
     for poin, deskripsi in sorted_poin_opsi:
 
         st.markdown(
             f"""
-            <div class="description-item">
-                <span class="point-badge">{poin} poin</span><br>
+            <div class="description-box">
+                <span class="point-label">{poin} poin</span><br>
                 {deskripsi}
             </div>
             """,
             unsafe_allow_html=True
         )
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
     # -----------------------------------------
-    # SCORE SELECTOR
+    # PILIH SKOR
     # -----------------------------------------
 
     pilihan_poin = [
@@ -320,7 +218,7 @@ for i, kriteria in enumerate(rubrik_penilaian):
     ]
 
     pilihan = st.selectbox(
-        "🎯 Pilih skor",
+        "🎯 Pilih skor:",
         pilihan_poin,
         format_func=lambda x: f"{x} poin",
         key=f"selectbox_{i}"
@@ -329,53 +227,68 @@ for i, kriteria in enumerate(rubrik_penilaian):
     selected_scores[nama] = pilihan
     total_score += pilihan
 
-    st.markdown("")
+    st.divider()
 
 
 # =========================================================
-# FINAL SCORE
+# TOTAL SCORE
 # =========================================================
 
 percentage = 0
 
 if max_score > 0:
-    percentage = (total_score / max_score) * 100
+    percentage = total_score / max_score
 
 
-score_placeholder.markdown(
-    f"""
-    <div class="score-card">
-
-        <div class="score-label">
-            Total Skor
-        </div>
-
-        <div class="score-number">
-            {total_score}
-            <span class="score-max">/ {max_score}</span>
-        </div>
-
-    </div>
-    """,
+st.markdown(
+    '<div class="section-title">🏆 Hasil Penilaian</div>',
     unsafe_allow_html=True
 )
 
 
-# =========================================================
-# PROGRESS BAR
-# =========================================================
+# Gunakan komponen Streamlit, bukan HTML
+col1, col2, col3 = st.columns(3)
 
+with col1:
+    st.metric(
+        "TOTAL SKOR",
+        f"{total_score} / {max_score}"
+    )
+
+with col2:
+    st.metric(
+        "PERSENTASE",
+        f"{percentage * 100:.1f}%"
+    )
+
+with col3:
+    if percentage >= 0.8:
+        status = "Sangat Baik"
+    elif percentage >= 0.6:
+        status = "Baik"
+    elif percentage >= 0.4:
+        status = "Cukup"
+    else:
+        status = "Perlu Perbaikan"
+
+    st.metric(
+        "STATUS",
+        status
+    )
+
+
+# Progress
 st.progress(
-    min(total_score / max_score, 1.0) if max_score > 0 else 0
+    min(percentage, 1.0)
 )
 
 st.caption(
-    f"Progress penilaian: **{percentage:.1f}%**"
+    f"Progress penilaian: {percentage * 100:.1f}%"
 )
 
 
 # =========================================================
-# RECAP
+# REKAP
 # =========================================================
 
 st.markdown(
@@ -383,24 +296,10 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 for nama, skor in selected_scores.items():
 
-    st.markdown(
-        f"""
-        <div class="recap-card">
-
-            <span class="recap-name">
-                {nama}
-            </span>
-
-            <span style="float:right;" class="recap-score">
-                {skor} poin
-            </span>
-
-        </div>
-        """,
-        unsafe_allow_html=True
+    st.write(
+        f"**{nama}** — {skor} poin"
     )
 
 
@@ -408,8 +307,8 @@ for nama, skor in selected_scores.items():
 # FOOTER
 # =========================================================
 
-st.markdown("---")
+st.divider()
 
 st.caption(
-    "Rubric Scoreboard • Kalkulator Penilaian Tugas Besar"
+    "📋 Rubric Scoreboard • Kalkulator Penilaian Tugas Besar"
 )
