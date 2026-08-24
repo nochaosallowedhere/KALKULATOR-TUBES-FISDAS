@@ -231,7 +231,7 @@ st.markdown("""
 st.markdown(
     """
     <div class="hero-box">
-        <div class="hero-title">📋 Rubric Scoreboard</div>
+        <div class="hero-title">📋 Kalkulator Tubes FISDAS</div>
         <div class="hero-subtitle">
             Kalkulator Rubrik Penilaian Tugas Besar
         </div>
@@ -363,5 +363,5 @@ for nama, skor in selected_scores.items():
 st.divider()
 
 st.caption(
-    "📋 Rubric Scoreboard • Kalkulator Penilaian Tugas Besar"
+    "THE REAL ASSISTANT"
 )
