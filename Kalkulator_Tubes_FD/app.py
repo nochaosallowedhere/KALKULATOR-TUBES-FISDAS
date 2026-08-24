@@ -11,26 +11,41 @@ st.set_page_config(
     layout="wide"
 )
 
-# =========================================================
-# CUSTOM CSS
-# =========================================================
-
 st.markdown("""
 <style>
 
-    /* Background */
+    /* =========================
+       BACKGROUND
+    ========================= */
+
     .stApp {
         background-color: #0b1f3a;
     }
 
-    /* Main container */
     .block-container {
         max-width: 1150px;
         padding-top: 2rem;
         padding-bottom: 4rem;
     }
 
-    /* Hero */
+
+    /* =========================
+       SEMUA FONT PUTIH
+       ========================= */
+
+    .stApp,
+    .stApp p,
+    .stApp span,
+    .stApp label,
+    .stApp div {
+        color: white;
+    }
+
+
+    /* =========================
+       HERO
+       ========================= */
+
     .hero-box {
         background: linear-gradient(135deg, #061426, #16345c);
         padding: 35px;
@@ -40,54 +55,36 @@ st.markdown("""
     }
 
     .hero-title {
-        color: white;
+        color: white !important;
         font-size: 2.3rem;
         font-weight: 800;
         margin: 0;
     }
 
     .hero-subtitle {
-        color: #cbd5e1;
+        color: white !important;
         font-size: 1rem;
         margin-top: 8px;
     }
 
-    /* Score */
-    .score-box {
-        background: white;
-        border-radius: 22px;
-        padding: 25px;
-        text-align: center;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        border: 1px solid #dbeafe;
-        margin-bottom: 30px;
-    }
 
-    .score-title {
-        color: #475569;
-        font-size: 0.9rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
+    /* =========================
+       SECTION TITLE
+       ========================= */
 
-    .score-value {
-        color: #0b1f3a;
-        font-size: 3rem;
-        font-weight: 900;
-        margin-top: 5px;
-    }
-
-    /* Section title */
     .section-title {
-        color: white;
+        color: white !important;
         font-size: 1.5rem;
         font-weight: 800;
         margin-top: 25px;
         margin-bottom: 15px;
     }
 
-    /* Judul kriteria */
+
+    /* =========================
+       JUDUL KRITERIA
+       ========================= */
+
     .stMarkdown h3 {
         color: white !important;
         font-size: 1.35rem !important;
@@ -96,39 +93,112 @@ st.markdown("""
         margin-bottom: 12px !important;
     }
 
-    /* Label */
-    .stMarkdown p {
-        color: #e2e8f0;
-    }
 
-    .description-title {
-        color: #e2e8f0 !important;
-        font-weight: 700;
-    }
+    /* =========================
+       DESKRIPSI
+       ========================= */
 
-    /* Description box */
     .description-box {
-        background: #f8fafc;
-        border-left: 5px solid #2563eb;
+        background: #16345c;
+        border-left: 5px solid #60a5fa;
         border-radius: 10px;
         padding: 12px 15px;
         margin-bottom: 10px;
-        color: #374151;
+        color: white !important;
         line-height: 1.6;
+    }
+
+    .description-box * {
+        color: white !important;
     }
 
     .point-label {
         font-weight: 800;
-        color: #0b1f3a;
+        color: white !important;
     }
 
-    /* Selectbox */
+
+    /* =========================
+       SELECTBOX
+       ========================= */
+
     div[data-baseweb="select"] > div {
-        background-color: white;
-        color: #111827;
+        background-color: #16345c !important;
+        color: white !important;
+        border: 1px solid #60a5fa;
     }
 
-    /* Mobile */
+    div[data-baseweb="select"] span {
+        color: white !important;
+    }
+
+    div[data-baseweb="select"] svg {
+        fill: white !important;
+    }
+
+
+    /* =========================
+       SCORE BOX
+       ========================= */
+
+    .score-box {
+        background: #16345c;
+        border-radius: 22px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.20);
+        border: 1px solid #60a5fa;
+        margin-bottom: 30px;
+    }
+
+    .score-title {
+        color: white !important;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .score-value {
+        color: white !important;
+        font-size: 3rem;
+        font-weight: 900;
+        margin-top: 5px;
+    }
+
+
+    /* =========================
+       REKAP
+       ========================= */
+
+    .stMarkdown strong {
+        color: white !important;
+    }
+
+
+    /* =========================
+       DIVIDER
+       ========================= */
+
+    hr {
+        border-color: #315477 !important;
+    }
+
+
+    /* =========================
+       CAPTION
+       ========================= */
+
+    .stCaption,
+    [data-testid="stCaptionContainer"] {
+        color: white !important;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
     @media (max-width: 768px) {
 
         .block-container {
