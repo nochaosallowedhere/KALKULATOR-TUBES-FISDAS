@@ -1,6 +1,10 @@
 import streamlit as st
 from rubric_data import rubrik_penilaian
 
+st.set_page_config(
+    page_title="Kalkulator Tubes",
+    layout="wide"
+)
 st.set_page_config(layout="centered", page_title="Kalkulator Rubrik Penilaian")
 
 st.title("Kalkulator Rubrik Penilaian Tugas Besar")
