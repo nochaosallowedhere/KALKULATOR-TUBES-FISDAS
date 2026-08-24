@@ -86,6 +86,26 @@ st.markdown("""
         margin-top: 25px;
         margin-bottom: 15px;
     }
+    
+    /* Judul BAB */
+.stMarkdown h3 {
+    color: #111827 !important;
+    font-size: 1.35rem !important;
+    font-weight: 800 !important;
+    margin-top: 25px !important;
+    margin-bottom: 12px !important;
+}
+
+/* Label Deskripsi Kriteria */
+.stMarkdown p {
+    color: #374151;
+}
+
+/* Judul deskripsi */
+.description-title {
+    color: #374151 !important;
+    font-weight: 700;
+}
 
     /* Description box */
     .description-box {
@@ -189,7 +209,20 @@ for i, kriteria in enumerate(rubrik_penilaian):
     # NAMA KRITERIA
     # -----------------------------------------
 
-    st.markdown(f"### 📌 {nama}")
+    st.markdown(
+    f"""
+    <div style="
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #111827;
+        margin-top: 25px;
+        margin-bottom: 12px;
+    ">
+        📌 {nama}
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
     # -----------------------------------------
     # DESKRIPSI
