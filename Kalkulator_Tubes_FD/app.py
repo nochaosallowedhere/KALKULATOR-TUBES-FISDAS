@@ -334,19 +334,13 @@ st.markdown(
 
 st.markdown(
     f"""
-    <div style="
-        font-size: 1.4rem;
-        font-weight: 800;
-        color: white;
-        margin-top: 25px;
-        margin-bottom: 12px;
-    ">
-        📌 {nama}
+    <div class="score-box">
+        <div class="score-title">TOTAL SCORE</div>
+        <div class="score-value">{total_score} poin</div>
     </div>
     """,
     unsafe_allow_html=True
 )
-
 
 # =========================================================
 # REKAP
