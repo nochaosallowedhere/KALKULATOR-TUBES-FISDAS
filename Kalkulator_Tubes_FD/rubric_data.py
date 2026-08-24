@@ -75,6 +75,13 @@ rubrik_penilaian = [
         }
     },
     {
+        'nama_kriteria': 'BAB IV.5',
+        'poin_tersedia': {
+            6: 'Menjelaskan analisis dari alat yang digunakan.',
+            0: 'Tidak menjelaskan sama sekali analisis dari alat yang digunakan.'
+        }
+    },
+    {
         'nama_kriteria': 'BAB V.1',
         'poin_tersedia': {
             5: 'Kesimpulan menjawab rumusan masalah.',
