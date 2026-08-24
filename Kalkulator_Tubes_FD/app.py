@@ -20,7 +20,7 @@ st.markdown("""
 
     /* Background */
     .stApp {
-        background-color: #f5f7fb;
+        background-color: #0b1f3a;
     }
 
     /* Main container */
@@ -32,11 +32,11 @@ st.markdown("""
 
     /* Hero */
     .hero-box {
-        background: linear-gradient(135deg, #111827, #374151);
+        background: linear-gradient(135deg, #061426, #16345c);
         padding: 35px;
         border-radius: 25px;
         margin-bottom: 25px;
-        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
     }
 
     .hero-title {
@@ -47,7 +47,7 @@ st.markdown("""
     }
 
     .hero-subtitle {
-        color: #d1d5db;
+        color: #cbd5e1;
         font-size: 1rem;
         margin-top: 8px;
     }
@@ -58,13 +58,13 @@ st.markdown("""
         border-radius: 22px;
         padding: 25px;
         text-align: center;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        border: 1px solid #e5e7eb;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        border: 1px solid #dbeafe;
         margin-bottom: 30px;
     }
 
     .score-title {
-        color: #6b7280;
+        color: #475569;
         font-size: 0.9rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -72,7 +72,7 @@ st.markdown("""
     }
 
     .score-value {
-        color: #111827;
+        color: #0b1f3a;
         font-size: 3rem;
         font-weight: 900;
         margin-top: 5px;
@@ -80,37 +80,36 @@ st.markdown("""
 
     /* Section title */
     .section-title {
-        color: #111827;
+        color: white;
         font-size: 1.5rem;
         font-weight: 800;
         margin-top: 25px;
         margin-bottom: 15px;
     }
-    
-    /* Judul BAB */
-.stMarkdown h3 {
-    color: #111827 !important;
-    font-size: 1.35rem !important;
-    font-weight: 800 !important;
-    margin-top: 25px !important;
-    margin-bottom: 12px !important;
-}
 
-/* Label Deskripsi Kriteria */
-.stMarkdown p {
-    color: #374151;
-}
+    /* Judul kriteria */
+    .stMarkdown h3 {
+        color: white !important;
+        font-size: 1.35rem !important;
+        font-weight: 800 !important;
+        margin-top: 25px !important;
+        margin-bottom: 12px !important;
+    }
 
-/* Judul deskripsi */
-.description-title {
-    color: #374151 !important;
-    font-weight: 700;
-}
+    /* Label */
+    .stMarkdown p {
+        color: #e2e8f0;
+    }
+
+    .description-title {
+        color: #e2e8f0 !important;
+        font-weight: 700;
+    }
 
     /* Description box */
     .description-box {
         background: #f8fafc;
-        border-left: 5px solid #374151;
+        border-left: 5px solid #2563eb;
         border-radius: 10px;
         padding: 12px 15px;
         margin-bottom: 10px;
@@ -120,6 +119,12 @@ st.markdown("""
 
     .point-label {
         font-weight: 800;
+        color: #0b1f3a;
+    }
+
+    /* Selectbox */
+    div[data-baseweb="select"] > div {
+        background-color: white;
         color: #111827;
     }
 
@@ -172,16 +177,6 @@ st.markdown(
 
 total_score = 0
 selected_scores = {}
-
-max_score = 0
-
-for kriteria in rubrik_penilaian:
-
-    poin_opsi = kriteria["poin_tersedia"]
-
-    if poin_opsi:
-        max_score += max(poin_opsi.keys())
-
 
 # =========================================================
 # PENILAIAN
@@ -262,61 +257,27 @@ for i, kriteria in enumerate(rubrik_penilaian):
 
     st.divider()
 
-
 # =========================================================
 # TOTAL SCORE
 # =========================================================
 
-percentage = 0
-
-if max_score > 0:
-    percentage = total_score / max_score
-
-
 st.markdown(
-    '<div class="section-title">🏆 Hasil Penilaian</div>',
+    '<div class="section-title">🏆 Total Score</div>',
     unsafe_allow_html=True
 )
 
-
-# Gunakan komponen Streamlit, bukan HTML
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.metric(
-        "TOTAL SKOR",
-        f"{total_score} / {max_score}"
-    )
-
-with col2:
-    st.metric(
-        "PERSENTASE",
-        f"{percentage * 100:.1f}%"
-    )
-
-with col3:
-    if percentage >= 0.8:
-        status = "Sangat Baik"
-    elif percentage >= 0.6:
-        status = "Baik"
-    elif percentage >= 0.4:
-        status = "Cukup"
-    else:
-        status = "Perlu Perbaikan"
-
-    st.metric(
-        "STATUS",
-        status
-    )
-
-
-# Progress
-st.progress(
-    min(percentage, 1.0)
-)
-
-st.caption(
-    f"Progress penilaian: {percentage * 100:.1f}%"
+st.markdown(
+    f"""
+    <div class="score-box">
+        <div class="score-title">
+            TOTAL SKOR
+        </div>
+        <div class="score-value">
+            {total_score} poin
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
 
@@ -334,8 +295,6 @@ for nama, skor in selected_scores.items():
     st.write(
         f"**{nama}** — {skor} poin"
     )
-
-
 # =========================================================
 # FOOTER
 # =========================================================
