@@ -1,7 +1,7 @@
 import base64
 import mimetypes
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple
 import streamlit as st
 from rubric_data import rubrik_penilaian, rubrik_tp_ta
 
@@ -12,11 +12,11 @@ from rubric_data import rubrik_penilaian, rubrik_tp_ta
 st.set_page_config(
     page_title="Kalkulator Tubes Fisdas",
     page_icon="🧮",
-    layout="wide"
+    layout="wide",
 )
 
 # =========================================================
-# KONFIGURASI WATERMARK OTOMATIS DARI SERVER
+# KONFIGURASI WATERMARK OTOMATIS DARI SERVER (1 GAMBAR)
 # =========================================================
 
 WATERMARK_CANDIDATES = [
@@ -24,13 +24,12 @@ WATERMARK_CANDIDATES = [
     "watermark.jpg",
     "watermark.jpeg",
     "watermark.webp",
-    "LOGO WARRIORS 2627 REMOVE BG.png",
 ]
-WATERMARK_OPACITY = 0.03   # Atur transparansi watermark (0.03 - 0.35)
-WATERMARK_SIZE = 214      # Ukuran pola watermark dalam px
+WATERMARK_OPACITY = 0.12   # Transparansi watermark (0.03 - 0.35)
+WATERMARK_SIZE = 320       # Lebar 1 gambar watermark di tengah (px)
 
 
-def load_server_watermark() -> Optional[tuple[bytes, str]]:
+def load_server_watermark() -> Optional[Tuple[bytes, str]]:
     """Membaca file watermark langsung dari folder server."""
     base_dir = Path(__file__).resolve().parent
     for filename in WATERMARK_CANDIDATES:
@@ -42,7 +41,7 @@ def load_server_watermark() -> Optional[tuple[bytes, str]]:
 
 
 def parse_persentase_int(raw_value: str) -> Optional[int]:
-    """Validasi input harus berupa integer dari 0 sampai 100."""
+    """Validasi input harus berupa bilangan bulat (int) dari 0 sampai 100."""
     cleaned = raw_value.strip()
     if cleaned.endswith("%"):
         cleaned = cleaned[:-1].strip()
@@ -312,6 +311,9 @@ base_style = """
 
 st.markdown(base_style, unsafe_allow_html=True)
 
+if watermark_data_uri:
+    st.markdown('<div class="watermark-overlay"></div>', unsafe_allow_html=True)
+
 
 # =========================================================
 # HEADER
@@ -326,7 +328,7 @@ st.markdown(
         </div>
     </div>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 
@@ -343,7 +345,7 @@ selected_scores = {}
 
 st.markdown(
     '<div class="section-title">📋 Penilaian Rubrik</div>',
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 st.markdown(
@@ -358,7 +360,7 @@ st.markdown(
         {rubrik_tp_ta["nama_kriteria"]} — {rubrik_tp_ta["keterangan"]}
     </div>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 st.markdown(
@@ -370,7 +372,7 @@ st.markdown(
         • Indeks 20 jika membuat PPT
     </div>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 tp_ta_score = 0
@@ -379,7 +381,7 @@ tp_ta_checked = []
 for komp in rubrik_tp_ta["komponen"]:
     is_checked = st.checkbox(
         f"{komp['label']} (Indeks {komp['poin']})",
-        key=f"tp_ta_{komp['id']}"
+        key=f"tp_ta_{komp['id']}",
     )
     if is_checked:
         tp_ta_score += komp["poin"]
@@ -400,13 +402,8 @@ st.divider()
 # =========================================================
 
 for i, kriteria in enumerate(rubrik_penilaian):
-
     nama = kriteria["nama_kriteria"]
     poin_opsi = kriteria["poin_tersedia"]
-
-    # -----------------------------------------
-    # JUDUL KRITERIA
-    # -----------------------------------------
 
     st.markdown(
         f"""
@@ -420,27 +417,18 @@ for i, kriteria in enumerate(rubrik_penilaian):
             {nama}
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
-
-    # -----------------------------------------
-    # URUTKAN POIN
-    # -----------------------------------------
 
     sorted_poin_opsi = sorted(
         poin_opsi.items(),
         key=lambda item: item[0],
-        reverse=True
+        reverse=True,
     )
-
-    # -----------------------------------------
-    # DESKRIPSI
-    # -----------------------------------------
 
     st.markdown("**Deskripsi Kriteria:**")
 
     for poin, deskripsi in sorted_poin_opsi:
-
         st.markdown(
             f"""
             <div class="description-box">
@@ -448,22 +436,16 @@ for i, kriteria in enumerate(rubrik_penilaian):
                 {deskripsi}
             </div>
             """,
-            unsafe_allow_html=True
+            unsafe_allow_html=True,
         )
 
-    # -----------------------------------------
-    # PILIH SKOR
-    # -----------------------------------------
-
-    pilihan_poin = [
-        poin for poin, deskripsi in sorted_poin_opsi
-    ]
+    pilihan_poin = [poin for poin, deskripsi in sorted_poin_opsi]
 
     pilihan = st.selectbox(
         "🎯 Pilih skor:",
         pilihan_poin,
         format_func=lambda x: f"{x} poin",
-        key=f"selectbox_{i}"
+        key=f"selectbox_{i}",
     )
 
     selected_scores[nama] = pilihan
@@ -477,7 +459,7 @@ for i, kriteria in enumerate(rubrik_penilaian):
 
 st.markdown(
     '<div class="section-title">🏆 Total Score</div>',
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 st.markdown(
@@ -487,7 +469,7 @@ st.markdown(
         <div class="score-value">{total_score} poin</div>
     </div>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 # =========================================================
@@ -496,13 +478,52 @@ st.markdown(
 
 st.markdown(
     '<div class="section-title">📈 Persentase Value (0 - 100%)</div>',
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 raw_persen = st.text_input(
     "Masukkan nilai persentase (bilangan bulat 0 - 100%):",
     placeholder="Contoh: 85",
-    key="persentase_input"
+    key="persentase_input",
 )
 
 persentase_valid: Optional[int] = None
+if raw_persen.strip() != "":
+    parsed = parse_persentase_int(raw_persen)
+    if parsed is None:
+        st.error("value tidak cocok")
+    else:
+        persentase_valid = parsed
+        skor_tertimbang = total_score * (persentase_valid / 100)
+        st.success(
+            f"Value Persentase: **{persentase_valid}%** | "
+            f"Nilai Tertimbang ({persentase_valid}% × {total_score}): **{skor_tertimbang:.2f}**"
+        )
+
+st.divider()
+
+# =========================================================
+# REKAP
+# =========================================================
+
+st.markdown(
+    '<div class="section-title">📊 Rekap Penilaian</div>',
+    unsafe_allow_html=True,
+)
+
+for nama, skor in selected_scores.items():
+    st.write(f"**{nama}** — {skor} poin")
+
+if persentase_valid is not None:
+    st.write(
+        f"**Persentase Value** — {persentase_valid}% "
+        f"(Nilai Tertimbang: {total_score * (persentase_valid / 100):.2f})"
+    )
+
+# =========================================================
+# FOOTER
+# =========================================================
+
+st.divider()
+
+st.caption("THE REAL ASSISTANT")
