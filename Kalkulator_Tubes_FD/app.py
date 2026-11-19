@@ -27,7 +27,7 @@ WATERMARK_CANDIDATES = [
     "LOGO WARRIORS 2627 REMOVE BG.png",
 ]
 WATERMARK_OPACITY = 0.03   # Atur transparansi watermark (0.03 - 0.35)
-WATERMARK_SIZE = 1000       # Ukuran pola watermark dalam px
+WATERMARK_SIZE = 214      # Ukuran pola watermark dalam px
 
 
 def load_server_watermark() -> Optional[tuple[bytes, str]]:
@@ -70,12 +70,19 @@ if watermark_data_uri:
         position: fixed;
         inset: 0;
         background-image: url("{watermark_data_uri}");
-        background-repeat: repeat;
+        background-repeat: no-repeat;
+        background-position: center center;
         background-size: {WATERMARK_SIZE}px auto;
         opacity: {WATERMARK_OPACITY};
         pointer-events: none;
         z-index: 0;
     }}
+
+    .stApp > div:first-child {{
+        position: relative;
+        z-index: 1;
+    }}
+    """
 
     .stApp > div:first-child {{
         position: relative;
