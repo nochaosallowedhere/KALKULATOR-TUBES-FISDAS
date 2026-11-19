@@ -77,6 +77,11 @@ if watermark_data_uri:
         pointer-events: none;
         z-index: 0;
     }}
+
+    .stApp > div:first-child {{
+        position: relative;
+        z-index: 1;
+    }}
     """
 
 base_style = """
@@ -88,124 +93,16 @@ base_style = """
 
     .stApp {
         background-color: #0b1f3a;
-        overflow-x: hidden;
     }
 
     __WATERMARK_CSS__
-
-    .stApp > div:first-child {
-        position: relative;
-        z-index: 2;
-    }
 
     .block-container {
         max-width: 1150px;
         padding-top: 2rem;
         padding-bottom: 4rem;
         position: relative;
-        z-index: 2;
-    }
-
-
-    /* =========================
-       ANIMASI BURUNG HANTU TERBANG
-    ========================= */
-
-    .sky-layer {
-        position: fixed;
-        inset: 0;
-        overflow: hidden;
-        pointer-events: none;
         z-index: 1;
-    }
-
-    .owl-container {
-        position: absolute;
-        left: -130px;
-        will-change: transform;
-        animation-name: owl-fly-across;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-    }
-
-    .owl-1 {
-        top: 15%;
-        animation-duration: 20s;
-        animation-delay: 0s;
-    }
-
-    .owl-2 {
-        top: 30%;
-        animation-duration: 26s;
-        animation-delay: -9s;
-        transform: scale(0.78);
-    }
-
-    .owl-3 {
-        top: 48%;
-        animation-duration: 23s;
-        animation-delay: -16s;
-        transform: scale(0.88);
-    }
-
-    .owl-svg {
-        width: 72px;
-        height: 48px;
-        overflow: visible;
-    }
-
-    .owl-wing-left {
-        transform-origin: 32px 24px;
-        animation: owl-flap-left 0.5s ease-in-out infinite alternate;
-    }
-
-    .owl-wing-right {
-        transform-origin: 40px 24px;
-        animation: owl-flap-right 0.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes owl-fly-across {
-        0% {
-            transform: translateX(-10vw) translateY(0px);
-            opacity: 0;
-        }
-        8% {
-            opacity: 0.8;
-        }
-        25% {
-            transform: translateX(25vw) translateY(-16px);
-        }
-        50% {
-            transform: translateX(55vw) translateY(12px);
-        }
-        75% {
-            transform: translateX(85vw) translateY(-12px);
-        }
-        92% {
-            opacity: 0.8;
-        }
-        100% {
-            transform: translateX(115vw) translateY(4px);
-            opacity: 0;
-        }
-    }
-
-    @keyframes owl-flap-left {
-        0% {
-            transform: rotate(-24deg);
-        }
-        100% {
-            transform: rotate(22deg);
-        }
-    }
-
-    @keyframes owl-flap-right {
-        0% {
-            transform: rotate(24deg);
-        }
-        100% {
-            transform: rotate(-22deg);
-        }
     }
 
 
@@ -417,42 +314,6 @@ st.markdown(base_style, unsafe_allow_html=True)
 
 if watermark_data_uri:
     st.markdown('<div class="watermark-overlay"></div>', unsafe_allow_html=True)
-
-# =========================================================
-# LAYER BURUNG HANTU TERBANG
-# =========================================================
-
-owl_svg = """
-<svg class="owl-svg" viewBox="0 0 72 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Sayap Kiri -->
-    <path class="owl-wing-left" d="M32 23 C20 8, 7 10, 2 20 C10 21, 21 24, 32 27 Z" fill="#60a5fa" />
-    <!-- Sayap Kanan -->
-    <path class="owl-wing-right" d="M40 23 C52 8, 65 10, 70 20 C62 21, 51 24, 40 27 Z" fill="#93c5fd" />
-    <!-- Badan & Kepala Burung Hantu -->
-    <path d="M27 11 L25 5 L30 9 L36 8 L42 9 L47 5 L45 11 C47 15, 47 29, 44 36 L36 42 L28 36 C25 29, 25 15, 27 11 Z" fill="#dbeafe" />
-    <!-- Pola Dada -->
-    <path d="M31 28 L36 31 L41 28" stroke="#1e3a8a" stroke-width="1.6" stroke-linecap="round" />
-    <path d="M32 33 L36 36 L40 33" stroke="#1e3a8a" stroke-width="1.6" stroke-linecap="round" />
-    <!-- Mata Besar Khas Burung Hantu -->
-    <circle cx="32" cy="17" r="4.2" fill="#0b1f3a" />
-    <circle cx="40" cy="17" r="4.2" fill="#0b1f3a" />
-    <circle cx="32.5" cy="16.5" r="1.6" fill="#fef08a" />
-    <circle cx="40.5" cy="16.5" r="1.6" fill="#fef08a" />
-    <!-- Paruh -->
-    <polygon points="36,19 33.5,23 38.5,23" fill="#fbbf24" />
-</svg>
-"""
-
-st.markdown(
-    f"""
-    <div class="sky-layer">
-        <div class="owl-container owl-1">{owl_svg}</div>
-        <div class="owl-container owl-2">{owl_svg}</div>
-        <div class="owl-container owl-3">{owl_svg}</div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
 
 
 # =========================================================
