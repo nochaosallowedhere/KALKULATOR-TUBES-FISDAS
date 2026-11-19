@@ -20,11 +20,11 @@ st.set_page_config(
 # =========================================================
 
 WATERMARK_CANDIDATES = [
+    "LOGO WARRIORS 2627 REMOVE BG.png",
     "watermark.png",
     "watermark.jpg",
     "watermark.jpeg",
     "watermark.webp",
-    "LOGO WARRIORS 2627 REMOVE BG.png",
 ]
 WATERMARK_OPACITY = 0.12   # Transparansi watermark (0.03 - 0.35)
 WATERMARK_SIZE = 320       # Lebar 1 gambar watermark di tengah (px)
@@ -77,11 +77,6 @@ if watermark_data_uri:
         pointer-events: none;
         z-index: 0;
     }}
-
-    .stApp > div:first-child {{
-        position: relative;
-        z-index: 1;
-    }}
     """
 
 base_style = """
@@ -93,16 +88,124 @@ base_style = """
 
     .stApp {
         background-color: #0b1f3a;
+        overflow-x: hidden;
     }
 
     __WATERMARK_CSS__
+
+    .stApp > div:first-child {
+        position: relative;
+        z-index: 2;
+    }
 
     .block-container {
         max-width: 1150px;
         padding-top: 2rem;
         padding-bottom: 4rem;
         position: relative;
+        z-index: 2;
+    }
+
+
+    /* =========================
+       ANIMASI BURUNG TERBANG
+    ========================= */
+
+    .sky-layer {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
         z-index: 1;
+    }
+
+    .bird-container {
+        position: absolute;
+        left: -120px;
+        will-change: transform;
+        animation-name: fly-across;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+    }
+
+    .bird-1 {
+        top: 14%;
+        animation-duration: 18s;
+        animation-delay: 0s;
+    }
+
+    .bird-2 {
+        top: 26%;
+        animation-duration: 24s;
+        animation-delay: -7s;
+        transform: scale(0.75);
+    }
+
+    .bird-3 {
+        top: 42%;
+        animation-duration: 21s;
+        animation-delay: -13s;
+        transform: scale(0.85);
+    }
+
+    .bird-svg {
+        width: 56px;
+        height: 36px;
+        overflow: visible;
+    }
+
+    .wing-left {
+        transform-origin: 28px 18px;
+        animation: flap-left 0.45s ease-in-out infinite alternate;
+    }
+
+    .wing-right {
+        transform-origin: 28px 18px;
+        animation: flap-right 0.45s ease-in-out infinite alternate;
+    }
+
+    @keyframes fly-across {
+        0% {
+            transform: translateX(-10vw) translateY(0px);
+            opacity: 0;
+        }
+        8% {
+            opacity: 0.75;
+        }
+        25% {
+            transform: translateX(25vw) translateY(-18px);
+        }
+        50% {
+            transform: translateX(55vw) translateY(10px);
+        }
+        75% {
+            transform: translateX(85vw) translateY(-14px);
+        }
+        92% {
+            opacity: 0.75;
+        }
+        100% {
+            transform: translateX(115vw) translateY(4px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes flap-left {
+        0% {
+            transform: rotate(-22deg);
+        }
+        100% {
+            transform: rotate(24deg);
+        }
+    }
+
+    @keyframes flap-right {
+        0% {
+            transform: rotate(22deg);
+        }
+        100% {
+            transform: rotate(-24deg);
+        }
     }
 
 
@@ -314,6 +417,29 @@ st.markdown(base_style, unsafe_allow_html=True)
 
 if watermark_data_uri:
     st.markdown('<div class="watermark-overlay"></div>', unsafe_allow_html=True)
+
+# =========================================================
+# LAYER BURUNG TERBANG
+# =========================================================
+
+bird_svg = """
+<svg class="bird-svg" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path class="wing-left" d="M28 18 C20 6, 10 8, 4 14 C12 13, 20 15, 28 18 Z" fill="#93c5fd" />
+    <path class="wing-right" d="M28 18 C36 6, 46 8, 52 14 C44 13, 36 15, 28 18 Z" fill="#bfdbfe" />
+    <ellipse cx="28" cy="19" rx="4" ry="2.2" fill="#e0f2fe" />
+</svg>
+"""
+
+st.markdown(
+    f"""
+    <div class="sky-layer">
+        <div class="bird-container bird-1">{bird_svg}</div>
+        <div class="bird-container bird-2">{bird_svg}</div>
+        <div class="bird-container bird-3">{bird_svg}</div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 # =========================================================
