@@ -1,6 +1,31 @@
+rubrik_tp_ta = {
+    "nama_kriteria": "TP TA",
+    "keterangan": "Kelengkapan Tubes (Indeks Total: 100)",
+    "komponen": [
+        {
+            "id": "laporan",
+            "label": "Laporan terpenuhi",
+            "deskripsi": "Kelengkapan laporan Tugas Besar terpenuhi sesuai ketentuan.",
+            "poin": 50,
+        },
+        {
+            "id": "maket_prototype",
+            "label": "Membawa maket/prototype",
+            "deskripsi": "Membawa maket atau prototype alat saat penilaian/presentasi.",
+            "poin": 30,
+        },
+        {
+            "id": "ppt",
+            "label": "Membuat PPT",
+            "deskripsi": "Menyiapkan dan menggunakan slide presentasi (PPT) Tugas Besar.",
+            "poin": 20,
+        },
+    ],
+}
+
 rubrik_penilaian = [
     {
-        'nama_kriteria': 'BAB I',
+        'nama_kriteria': 'BAB 1',
         'poin_tersedia': {
             10: 'Mencakup Latar belakang, rumusan masalah, tujuan, serta manfaat',
             8: 'Mencakup latar belakang, rumusan masalah dan tujuan atau manfaat.',
@@ -10,7 +35,7 @@ rubrik_penilaian = [
         }
     },
     {
-        'nama_kriteria': 'BAB II',
+        'nama_kriteria': 'BAB 2',
         'poin_tersedia': {
             10: 'Teori menjelaskan cara alat yang dirancang dan sumbernya valid.',
             8: 'Teori menjelaskan cara alat yang dirancang namun sumbernya tidak dicantumkan atau tidak valid',
@@ -20,7 +45,7 @@ rubrik_penilaian = [
         }
     },
     {
-        'nama_kriteria': 'BAB III.1',
+        'nama_kriteria': 'BAB 3.1',
         'poin_tersedia': {
             10: 'Terdapat 2 poin utama: Menjelaskan secara rinci permasalahan yang dihadapi dan menentukan solusi dari masalah',
             5: 'Hanya salah satu poin utama yang benar dan relevan',
@@ -28,7 +53,7 @@ rubrik_penilaian = [
         }
     },
     {
-        'nama_kriteria': 'BAB III.2',
+        'nama_kriteria': 'BAB 3.2',
         'poin_tersedia': {
             10: 'Terdapat 2 poin utama: Menggunakan literatur (pengumpulan data terlebih dahulu), data yang dibutuhkan berupa cara kerja alat dan Literatur yang berkaitan pada masalah ',
             5: 'Hanya mencakup salah satu literatur saja',
@@ -36,7 +61,7 @@ rubrik_penilaian = [
         }
     },
     {
-        'nama_kriteria': 'BAB III.3',
+        'nama_kriteria': 'BAB 3.3',
         'poin_tersedia': {
             10: 'Terdapat 2 poin utama: Menjelaskan tentang desain dan Menjelaskan tentang rancangan alat yang digunakan ',
             5: 'Hanya menjelaskan salah satu poin utama ',
@@ -44,7 +69,7 @@ rubrik_penilaian = [
         }
     },
     {
-        'nama_kriteria': 'BAB IV.1',
+        'nama_kriteria': 'BAB 4.1',
         'poin_tersedia': {
             6: 'Menampilkan sketsa atau gambar prototype lengkap dengan proyeksinya (Depan, samping, atas)',
             3: 'Menampilkan sketsa atau gambar prototype namun tidak lengkap proyeksinya (Depan, samping, atas)',
@@ -52,7 +77,7 @@ rubrik_penilaian = [
         }
     },
     {
-        'nama_kriteria': 'BAB IV.2',
+        'nama_kriteria': 'BAB 4.2',
         'poin_tersedia': {
             6: 'Menggambarkan Flowchart secara rinci tahapan-tahapan dengan benar.',
             3: 'Menggambarkan secara rinci tahapan-tahapan suatu proses kerja namun kurang tepat.',
@@ -60,14 +85,14 @@ rubrik_penilaian = [
         }
     },
     {
-        'nama_kriteria': 'BAB IV.3',
+        'nama_kriteria': 'BAB 4.3',
         'poin_tersedia': {
             6: 'Menjelaskan cara kerja alat.',
             0: 'Tidak menjelaskan cara kerja alat sama sekali.'
         }
     },
     {
-        'nama_kriteria': 'BAB IV.4',
+        'nama_kriteria': 'BAB 4.4',
         'poin_tersedia': {
             6: 'Terdapat 3 poin utama : Membahas tentang perhitungan, Membahas hasil pengukuran, dan Membahas proses pengujian dari alat yang digunakan',
             3: 'Terdapat 1 atau 2 poin utama yang benar',
@@ -75,21 +100,21 @@ rubrik_penilaian = [
         }
     },
     {
-        'nama_kriteria': 'BAB IV.5',
+        'nama_kriteria': 'BAB 4.5',
         'poin_tersedia': {
             6: 'Menjelaskan analisis dari alat yang digunakan.',
             0: 'Tidak menjelaskan sama sekali analisis dari alat yang digunakan.'
         }
     },
     {
-        'nama_kriteria': 'BAB V.1',
+        'nama_kriteria': 'BAB 5.1',
         'poin_tersedia': {
             5: 'Kesimpulan menjawab rumusan masalah.',
             0: 'Kesimpulan tidak menjawab rumusan masalah.'
         }
     },
     {
-        'nama_kriteria': 'BAB V.2',
+        'nama_kriteria': 'BAB 5.2',
         'poin_tersedia': {
             5: 'Melampirkan saran',
             0: 'Tidak melampirkan saran'
