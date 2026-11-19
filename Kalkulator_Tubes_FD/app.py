@@ -23,6 +23,7 @@ WATERMARK_CANDIDATES = [
     "watermark.jpg",
     "watermark.jpeg",
     "watermark.webp",
+    "LOGO WARRIORS 2627 REMOVE BG.png",
 ]
 WATERMARK_OPACITY = 0.10   # Atur transparansi watermark (0.03 - 0.35)
 WATERMARK_SIZE = 260       # Ukuran pola watermark dalam px
