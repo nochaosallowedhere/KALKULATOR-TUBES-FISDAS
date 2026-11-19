@@ -4,7 +4,7 @@ rubrik_tp_ta = {
     "komponen": [
         {
             "id": "laporan",
-            "label": "Laporan terpenuhi",
+            "label": "Laporan terpenuhi, softfile & hardfile tidak berbeda/softfile dikumpulkan",
             "deskripsi": "Kelengkapan laporan Tugas Besar terpenuhi sesuai ketentuan.",
             "poin": 50,
         },
