@@ -478,7 +478,7 @@ st.markdown(
 # =========================================================
 
 st.markdown(
-    '<div class="section-title">📈 Persentase Value (0 - 100%)</div>',
+    '<div class="section-title">📈 Kontribusi Laporan</div>',
     unsafe_allow_html=True,
 )
 
