@@ -15,16 +15,6 @@ st.set_page_config(
 )
 
 
-def load_default_watermark() -> tuple[bytes, str] | None:
-    """Mencari file watermark bawaan di folder server jika tersedia."""
-    for filename in ["watermark.png", "watermark.jpg", "watermark.jpeg", "watermark.webp"]:
-        path = Path(filename)
-        if path.exists() and path.is_file():
-            mime = mimetypes.guess_type(path.name)[0] or "image/png"
-            return path.read_bytes(), mime
-    return None
-
-
 def parse_persentase_int(raw_value: str) -> int | None:
     """Validasi input harus berupa integer dari 0 sampai 100."""
     cleaned = raw_value.strip()
