@@ -26,8 +26,8 @@ WATERMARK_CANDIDATES = [
     "watermark.webp",
     "LOGO WARRIORS 2627 REMOVE BG.png",
 ]
-WATERMARK_OPACITY = 0.10   # Atur transparansi watermark (0.03 - 0.35)
-WATERMARK_SIZE = 260       # Ukuran pola watermark dalam px
+WATERMARK_OPACITY = 0.03   # Atur transparansi watermark (0.03 - 0.35)
+WATERMARK_SIZE = 1000       # Ukuran pola watermark dalam px
 
 
 def load_server_watermark() -> Optional[tuple[bytes, str]]:
