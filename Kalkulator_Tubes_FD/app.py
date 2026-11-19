@@ -84,32 +84,26 @@ if watermark_data_uri:
     }}
     """
 
-    .stApp > div:first-child {{
-        position: relative;
-        z-index: 1;
-    }}
-    """
-
-st.markdown(f"""
+base_style = """
 <style>
 
     /* =========================
        BACKGROUND & WATERMARK
     ========================= */
 
-    .stApp {{
+    .stApp {
         background-color: #0b1f3a;
-    }}
+    }
 
-    {watermark_css}
+    __WATERMARK_CSS__
 
-    .block-container {{
+    .block-container {
         max-width: 1150px;
         padding-top: 2rem;
         padding-bottom: 4rem;
         position: relative;
         z-index: 1;
-    }}
+    }
 
 
     /* =========================
@@ -120,68 +114,68 @@ st.markdown(f"""
     .stApp p,
     .stApp span,
     .stApp label,
-    .stApp div {{
+    .stApp div {
         color: white;
-    }}
+    }
 
 
     /* =========================
        HERO
     ========================= */
 
-    .hero-box {{
+    .hero-box {
         background: linear-gradient(135deg, #061426, #16345c);
         padding: 35px;
         border-radius: 25px;
         margin-bottom: 25px;
         box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-    }}
+    }
 
-    .hero-title {{
+    .hero-title {
         color: white !important;
         font-size: 2.3rem;
         font-weight: 800;
         margin: 0;
-    }}
+    }
 
-    .hero-subtitle {{
+    .hero-subtitle {
         color: white !important;
         font-size: 1rem;
         margin-top: 8px;
-    }}
+    }
 
 
     /* =========================
        SECTION TITLE
     ========================= */
 
-    .section-title {{
+    .section-title {
         color: white !important;
         font-size: 1.5rem;
         font-weight: 800;
         margin-top: 25px;
         margin-bottom: 15px;
-    }}
+    }
 
 
     /* =========================
        JUDUL KRITERIA
     ========================= */
 
-    .stMarkdown h3 {{
+    .stMarkdown h3 {
         color: white !important;
         font-size: 1.35rem !important;
         font-weight: 800 !important;
         margin-top: 25px !important;
         margin-bottom: 12px !important;
-    }}
+    }
 
 
     /* =========================
        DESKRIPSI
     ========================= */
 
-    .description-box {{
+    .description-box {
         background: #16345c;
         border-left: 5px solid #60a5fa;
         border-radius: 10px;
@@ -189,52 +183,52 @@ st.markdown(f"""
         margin-bottom: 10px;
         color: white !important;
         line-height: 1.6;
-    }}
+    }
 
-    .description-box * {{
+    .description-box * {
         color: white !important;
-    }}
+    }
 
-    .point-label {{
+    .point-label {
         font-weight: 800;
         color: white !important;
-    }}
+    }
 
 
     /* =========================
        SELECTBOX & TEXT INPUT
     ========================= */
 
-    div[data-baseweb="select"] > div {{
+    div[data-baseweb="select"] > div {
         background-color: #16345c !important;
         color: white !important;
         border: 1px solid #60a5fa;
-    }}
+    }
 
-    div[data-baseweb="select"] span {{
+    div[data-baseweb="select"] span {
         color: white !important;
-    }}
+    }
 
-    div[data-baseweb="select"] svg {{
+    div[data-baseweb="select"] svg {
         fill: white !important;
-    }}
+    }
 
-    div[data-baseweb="input"] > div {{
+    div[data-baseweb="input"] > div {
         background-color: #16345c !important;
         color: white !important;
         border: 1px solid #60a5fa;
-    }}
+    }
 
-    div[data-baseweb="input"] input {{
+    div[data-baseweb="input"] input {
         color: white !important;
-    }}
+    }
 
 
     /* =========================
        SCORE BOX
     ========================= */
 
-    .score-box {{
+    .score-box {
         background: #16345c;
         border-radius: 22px;
         padding: 25px;
@@ -242,40 +236,40 @@ st.markdown(f"""
         box-shadow: 0 8px 25px rgba(0,0,0,0.20);
         border: 1px solid #60a5fa;
         margin-bottom: 20px;
-    }}
+    }
 
-    .score-title {{
+    .score-title {
         color: white !important;
         font-size: 0.9rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
-    }}
+    }
 
-    .score-value {{
+    .score-value {
         color: white !important;
         font-size: 3rem;
         font-weight: 900;
         margin-top: 5px;
-    }}
+    }
 
 
     /* =========================
        REKAP
     ========================= */
 
-    .stMarkdown strong {{
+    .stMarkdown strong {
         color: white !important;
-    }}
+    }
 
 
     /* =========================
        DIVIDER
     ========================= */
 
-    hr {{
+    hr {
         border-color: #315477 !important;
-    }}
+    }
 
 
     /* =========================
@@ -283,41 +277,40 @@ st.markdown(f"""
     ========================= */
 
     .stCaption,
-    [data-testid="stCaptionContainer"] {{
+    [data-testid="stCaptionContainer"] {
         color: white !important;
-    }}
+    }
 
 
     /* =========================
        MOBILE
     ========================= */
 
-    @media (max-width: 768px) {{
+    @media (max-width: 768px) {
 
-        .block-container {{
+        .block-container {
             padding: 1rem;
-        }}
+        }
 
-        .hero-box {{
+        .hero-box {
             padding: 22px;
             border-radius: 18px;
-        }}
+        }
 
-        .hero-title {{
+        .hero-title {
             font-size: 1.7rem;
-        }}
+        }
 
-        .score-value {{
+        .score-value {
             font-size: 2.4rem;
-        }}
+        }
 
-    }}
+    }
 
 </style>
-""", unsafe_allow_html=True)
+""".replace("__WATERMARK_CSS__", watermark_css)
 
-if watermark_data_uri:
-    st.markdown('<div class="watermark-overlay"></div>', unsafe_allow_html=True)
+st.markdown(base_style, unsafe_allow_html=True)
 
 
 # =========================================================
