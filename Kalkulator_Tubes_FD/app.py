@@ -1,6 +1,7 @@
 import base64
 import mimetypes
 from pathlib import Path
+from typing import Optional
 import streamlit as st
 from rubric_data import rubrik_penilaian, rubrik_tp_ta
 
