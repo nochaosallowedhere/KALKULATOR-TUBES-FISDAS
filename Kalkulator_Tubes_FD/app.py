@@ -30,7 +30,7 @@ WATERMARK_OPACITY = 0.10   # Atur transparansi watermark (0.03 - 0.35)
 WATERMARK_SIZE = 260       # Ukuran pola watermark dalam px
 
 
-def load_server_watermark() -> tuple[bytes, str] | None:
+def load_server_watermark() -> Optional[tuple[bytes, str]]:
     """Membaca file watermark langsung dari folder server."""
     base_dir = Path(__file__).resolve().parent
     for filename in WATERMARK_CANDIDATES:
@@ -41,7 +41,7 @@ def load_server_watermark() -> tuple[bytes, str] | None:
     return None
 
 
-def parse_persentase_int(raw_value: str) -> int | None:
+def parse_persentase_int(raw_value: str) -> Optional[int]:
     """Validasi input harus berupa integer dari 0 sampai 100."""
     cleaned = raw_value.strip()
     if cleaned.endswith("%"):
@@ -505,4 +505,4 @@ raw_persen = st.text_input(
     key="persentase_input"
 )
 
-persentase_valid: int |
+persentase_valid: Optional[int] = None
