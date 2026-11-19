@@ -14,6 +14,30 @@ st.set_page_config(
     layout="wide"
 )
 
+# =========================================================
+# KONFIGURASI WATERMARK OTOMATIS DARI SERVER
+# =========================================================
+
+WATERMARK_CANDIDATES = [
+    "watermark.png",
+    "watermark.jpg",
+    "watermark.jpeg",
+    "watermark.webp",
+]
+WATERMARK_OPACITY = 0.10   # Atur transparansi watermark (0.03 - 0.35)
+WATERMARK_SIZE = 260       # Ukuran pola watermark dalam px
+
+
+def load_server_watermark() -> tuple[bytes, str] | None:
+    """Membaca file watermark langsung dari folder server."""
+    base_dir = Path(__file__).resolve().parent
+    for filename in WATERMARK_CANDIDATES:
+        path = base_dir / filename
+        if path.exists() and path.is_file():
+            mime = mimetypes.guess_type(path.name)[0] or "image/png"
+            return path.read_bytes(), mime
+    return None
+
 
 def parse_persentase_int(raw_value: str) -> int | None:
     """Validasi input harus berupa integer dari 0 sampai 100."""
@@ -22,7 +46,6 @@ def parse_persentase_int(raw_value: str) -> int | None:
         cleaned = cleaned[:-1].strip()
     if not cleaned:
         return None
-    # Tolak tanda +/- atau karakter non-digit agar murni integer positif 0-100
     if not cleaned.isdigit():
         return None
     val = int(cleaned)
@@ -31,45 +54,12 @@ def parse_persentase_int(raw_value: str) -> int | None:
     return None
 
 
-# =========================================================
-# WATERMARK & PENGATURAN SERVER
-# =========================================================
-
-with st.expander("🖼️ Pengaturan Watermark Background Server", expanded=False):
-    uploaded_watermark = st.file_uploader(
-        "Input foto watermark (PNG, JPG, JPEG, WEBP)",
-        type=["png", "jpg", "jpeg", "webp"],
-        key="watermark_uploader"
-    )
-    watermark_opacity = st.slider(
-        "Transparansi Watermark",
-        min_value=0.03,
-        max_value=0.35,
-        value=0.10,
-        step=0.01,
-        key="watermark_opacity"
-    )
-    watermark_size = st.slider(
-        "Ukuran Pola Watermark (px)",
-        min_value=140,
-        max_value=500,
-        value=260,
-        step=20,
-        key="watermark_size"
-    )
-
 watermark_data_uri = ""
-if uploaded_watermark is not None:
-    raw_bytes = uploaded_watermark.getvalue()
-    mime_type = uploaded_watermark.type or "image/png"
+server_wm = load_server_watermark()
+if server_wm is not None:
+    raw_bytes, mime_type = server_wm
     b64_img = base64.b64encode(raw_bytes).decode("utf-8")
     watermark_data_uri = f"data:{mime_type};base64,{b64_img}"
-else:
-    default_wm = load_default_watermark()
-    if default_wm is not None:
-        raw_bytes, mime_type = default_wm
-        b64_img = base64.b64encode(raw_bytes).decode("utf-8")
-        watermark_data_uri = f"data:{mime_type};base64,{b64_img}"
 
 watermark_css = ""
 if watermark_data_uri:
@@ -79,8 +69,8 @@ if watermark_data_uri:
         inset: 0;
         background-image: url("{watermark_data_uri}");
         background-repeat: repeat;
-        background-size: {watermark_size}px auto;
-        opacity: {watermark_opacity};
+        background-size: {WATERMARK_SIZE}px auto;
+        opacity: {WATERMARK_OPACITY};
         pointer-events: none;
         z-index: 0;
     }}
@@ -513,48 +503,4 @@ raw_persen = st.text_input(
     key="persentase_input"
 )
 
-persentase_valid: int | None = None
-if raw_persen.strip() != "":
-    parsed = parse_persentase_int(raw_persen)
-    if parsed is None:
-        st.error("value tidak cocok")
-    else:
-        persentase_valid = parsed
-        skor_tertimbang = total_score * (persentase_valid / 100)
-        st.success(
-            f"Value Persentase: **{persentase_valid}%** | "
-            f"Nilai Tertimbang ({persentase_valid}% × {total_score}): **{skor_tertimbang:.2f}**"
-        )
-
-st.divider()
-
-# =========================================================
-# REKAP
-# =========================================================
-
-st.markdown(
-    '<div class="section-title">📊 Rekap Penilaian</div>',
-    unsafe_allow_html=True
-)
-
-for nama, skor in selected_scores.items():
-
-    st.write(
-        f"**{nama}** — {skor} poin"
-    )
-
-if persentase_valid is not None:
-    st.write(
-        f"**Persentase Value** — {persentase_valid}% "
-        f"(Nilai Tertimbang: {total_score * (persentase_valid / 100):.2f})"
-    )
-
-# =========================================================
-# FOOTER
-# =========================================================
-
-st.divider()
-
-st.caption(
-    "THE REAL ASSISTANT"
-)
+persentase_valid: int |
